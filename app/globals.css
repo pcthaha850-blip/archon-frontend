@@ -1,0 +1,253 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Finviz-inspired dark theme */
+@layer base {
+  :root {
+    --background: 0 0% 5%;           /* #0d0d0d - dark background */
+    --foreground: 0 0% 95%;          /* #f2f2f2 - light text */
+
+    --card: 0 0% 8%;                 /* #141414 - card background */
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 203 100% 50%;         /* #00bfff - cyan accent */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 12%;           /* #1f1f1f */
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 0 0% 15%;               /* #262626 */
+    --muted-foreground: 0 0% 60%;    /* #999999 */
+
+    --accent: 203 100% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 50%;        /* #ff0000 */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 20%;              /* #333333 */
+    --input: 0 0% 20%;
+    --ring: 203 100% 50%;
+
+    --radius: 0.25rem;               /* Minimal rounded corners like Finviz */
+  }
+
+  .dark {
+    --background: 0 0% 5%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 203 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 203 100% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 203 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Finviz-style table */
+@layer components {
+  .finviz-table {
+    @apply w-full border-collapse;
+  }
+
+  .finviz-table th {
+    @apply border border-border bg-secondary px-3 py-2 text-left text-sm font-semibold text-muted-foreground;
+  }
+
+  .finviz-table td {
+    @apply border border-border px-3 py-2 text-sm font-mono;
+  }
+
+  .finviz-table tbody tr:hover {
+    @apply bg-secondary/50;
+  }
+
+  /* Profit/Loss colors */
+  .profit {
+    @apply text-profit;
+  }
+
+  .loss {
+    @apply text-loss;
+  }
+
+  .neutral {
+    @apply text-neutral;
+  }
+
+  /* Status badges */
+  .status-badge {
+    @apply inline-flex items-center rounded-sm border px-2 py-1 text-xs font-semibold;
+  }
+
+  .status-running {
+    @apply border-profit/30 bg-profit/10 text-profit;
+  }
+
+  .status-stopped {
+    @apply border-neutral/30 bg-neutral/10 text-neutral;
+  }
+
+  .status-error {
+    @apply border-loss/30 bg-loss/10 text-loss;
+  }
+
+  /* Chart container */
+  .chart-container {
+    @apply border border-border bg-card p-4;
+  }
+
+  /* Scrollbar styling */
+  .custom-scrollbar::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-secondary;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-muted rounded;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground;
+  }
+
+  /* Metric card */
+  .metric-card {
+    @apply border border-border bg-card p-4;
+  }
+
+  .metric-card-title {
+    @apply text-xs text-muted-foreground uppercase tracking-wide;
+  }
+
+  .metric-card-value {
+    @apply text-2xl font-bold font-mono mt-2;
+  }
+
+  .metric-card-change {
+    @apply text-sm font-mono mt-1;
+  }
+
+  /* Data grid like Finviz */
+  .data-grid {
+    @apply grid gap-4;
+  }
+
+  /* Button variants */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 border border-primary/50;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-border;
+  }
+
+  .btn-danger {
+    @apply bg-destructive text-destructive-foreground hover:bg-destructive/90 border border-destructive/50;
+  }
+}
+
+/* Custom utilities */
+@layer utilities {
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Text gradients */
+  .text-gradient-profit {
+    @apply bg-gradient-to-r from-profit to-profit-light bg-clip-text text-transparent;
+  }
+
+  .text-gradient-loss {
+    @apply bg-gradient-to-r from-loss to-loss-light bg-clip-text text-transparent;
+  }
+}
+
+/* Loading skeleton */
+.skeleton {
+  @apply animate-pulse bg-muted rounded;
+}
+
+/* Glow effect for active elements */
+.glow-profit {
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+.glow-loss {
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+.glow-primary {
+  box-shadow: 0 0 10px rgba(0, 191, 255, 0.3);
+}
+
+/* Number formatting */
+.number-positive {
+  @apply text-profit;
+}
+
+.number-positive::before {
+  content: '+';
+}
+
+.number-negative {
+  @apply text-loss;
+}
+
+/* Ticker animation */
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker {
+  animation: ticker 30s linear infinite;
+}
+
+/* Blink animation for alerts */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.alert-blink {
+  animation: blink 1s ease-in-out infinite;
+}
